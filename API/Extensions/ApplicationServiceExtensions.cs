@@ -1,6 +1,8 @@
 using API.Data;
+using API.Helper;
 using API.Interfaces;
-using API.Services;
+using AutoMapper;
+// using API.Services;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -11,7 +13,9 @@ namespace API.Extensions
     {
         public static IServiceCollection AddApplicationServices(this IServiceCollection services, IConfiguration config)
         {
-            services.AddScoped<ITokenService, TokenService>();
+            // services.AddScoped<ITokenService, TokenService>();
+            services.AddScoped<ITransportCardRepository, TransportCardRepository>();
+            services.AddAutoMapper(typeof(AutoMapperProfiles).Assembly);
             services.AddDbContext<DataContext>(options =>
             {
                 options.UseSqlite(config.GetConnectionString("DefaultConnection"));
